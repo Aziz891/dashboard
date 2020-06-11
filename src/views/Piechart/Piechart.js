@@ -1,8 +1,7 @@
 import React, { Component, lazy, Suspense } from 'react';
 import axios from "axios";
-import { Bar, Line, Doughnut } from 'react-chartjs-2';
 
-
+import { Bar, Line, Doughnut, Pie } from 'react-chartjs-2';
 
 import {
   Badge,
@@ -28,7 +27,7 @@ import {
 import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
 
-const Widget03 = lazy(() => import('../../views/Widgets/Widget03'));
+const Widget03 = lazy(() => import('../Widgets/Widget03'));
 
 const brandPrimary = getStyle('--primary')
 const brandSuccess = getStyle('--success')
@@ -346,19 +345,7 @@ const makeSparkLineData = (dataSetNo, variant) => {
   return () => data;
 };
 
-const doughnutoption = { tooltips : {
-    callbacks: {
-        label: function(tooltip, data) {
-          let label= ''
-         
-          label = label + data.labels[tooltip.index] + ' : '  
-          label = label + data.datasets[0].data[tooltip.index] + ' ('
-          let perc = 100 * (data.datasets[0].data[tooltip.index])  /  (data.datasets[0].data.reduce((i,j) => (i+j), 0))
-          label = label + Math.round(perc *100)/100 +'%)'
-          return label
-        }
-    }
-}  }
+
 
 const sparklineChartOpts = {
   tooltips: {
@@ -459,7 +446,19 @@ const bar_label = []
 const data_chart_line = {"woa": [], "eoa": [], "coa": [], "pesd": [], }
 let data_chart_line_test = {}
 
-
+const doughnutoption = { tooltips : {
+  callbacks: {
+      label: function(tooltip, data) {
+        let label= ''
+       
+        label = label + data.labels[tooltip.index] + ' : '  
+        label = label + data.datasets[0].data[tooltip.index] + ' ('
+        let perc = 100 * (data.datasets[0].data[tooltip.index])  /  (data.datasets[0].data.reduce((i,j) => (i+j), 0))
+        label = label + Math.round(perc *100)/100 +'%)'
+        return label
+      }
+  }
+}  }
 
 const mainChartOpts = {
  
@@ -515,7 +514,7 @@ const mainChartOpts = {
   // },
 };
 
-class Dashboard extends Component {
+class Piechart extends Component {
   constructor(props) {
     super(props);
 
@@ -530,101 +529,16 @@ class Dashboard extends Component {
     };
   }
   
- call_api(radioSelected) {
-
-   const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
-  let  url_ips = 'http://10.75.81.29:81/faults/ips/?'
-  let query_period =''
-  switch (radioSelected) {
-    case 1:
-      query_period = '1'
-      mainChartOpts.scales.xAxes[0].time = {unit : 'day'}
-      
-      break;
-      case 2:
-        
-        query_period = '0'
-        mainChartOpts.scales.xAxes[0].time = {unit : 'month'}
-        break;
-        case 3:
-          
-          query_period = '2'
-          mainChartOpts.scales.xAxes[0].time = {unit : 'year'}
-          break;
-          
-          default:
-            query_period = '0'
-            break;
-  }
-  
-  if(this.props.url == 'csd') {
-    url_ips = url_ips + 'department=1'
-  }
-  else if(this.props.url == 'dped') {
-    url_ips = url_ips + 'department=2'
-  }
-  else {
-    
-    url_ips = url_ips + 'department=0'
-  }
-
-  axios.get(url_ips + '&period=' + query_period)
-    .then(response => {
-
-let deptData = {}
-let deptDataCharts = []
-
-response.data.count.forEach(function (i) {
-
-  if (typeof deptData[i.department] === 'undefined') {
-
-    deptData[i.department] = [{
-      t: i.date,
-      y: i.count
-    }]
-  } else {
-
-    deptData[i.department].push({
-      t: i.date,
-      y: i.count
-    })
-
-
-  }
-
-})
-
-Object.keys(deptData).forEach(function (i, index) {
-
-  deptDataCharts.push({
-    label: i,
-    backgroundColor: 'transparent',
-    lineTension : 0,
-    borderColor: colorSet[index],
-    
-    pointHoverBackgroundColor: '#fff',
-    borderWidth: 2,
-    fill: '-1',
-
-
-    data: deptData[i]
-  })
-  
-  
-})
-let bar_data = []
-let bar_data_labels = []
-
-deptDataCharts.forEach((i) =>( bar_data_labels.push(i.label) ))
-deptDataCharts.forEach((i) =>( bar_data.push( i.data.reduce((i, j) => i  + j.y, 0   ) ) ))
-
-
-let bar_data_colors = colorSet.slice(0, bar_data_labels.length)
-let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundColor: colorSet.slice(0, bar_data_labels.length) }]  }
-    
-      
-      this.setState({ data_pie: PieData,   data: { datasets: deptDataCharts}} );
-})}
+  call_api(api_url) {
+    const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
+    axios.get(api_url)
+      .then(response => {
+     
+         let PieData = { labels: response.data.labels, datasets: [{data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }]  }
+         this.setState({ data_pie: PieData} );
+ 
+ 
+  })}
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
@@ -635,7 +549,7 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
     this.setState({
       radioSelected: radioSelected,
     });
-
+ 
     this.call_api(radioSelected)
     
     
@@ -646,7 +560,7 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
 
   
   componentDidMount() {
-   this.call_api(2)
+   this.call_api(this.props.url)
   }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -654,70 +568,29 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
   render() {
 
     return (
-      <div className="animated fadeIn">
- 
-
-
-        <Row>
-          <Col>
-            <Card>
-              <CardBody>
-                <Row>
-                  <Col sm="5">
-                    <CardTitle className="mb-0">{this.props.title}</CardTitle>
-                    <div className="small text-muted"></div>
-                  </Col>
-                  <Col sm="7" className="d-none d-sm-inline-block">
-                    {/* <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button> */}
-                    <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
-                      <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Day</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Month</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>Year</Button>
-                      </ButtonGroup>
-                    </ButtonToolbar>
-                  </Col>
-                </Row>
-                <Row>
-                      <Col sm="8">
-                   
+   
+      <Card>
+        <CardHeader>
+         {this.props.title}
+          <div className="card-header-actions">
            
-           <Line data={this.state.data} options={mainChartOpts} height={300}  />
-        
-        
-    
-               
-                      </Col>
-                      <Col sm="4">
-
-           <Doughnut data={this.state.data_pie} options={doughnutoption} />
-          
-      
-                      </Col>
-                    </Row>
-           
+          </div>
+        </CardHeader>
+        <CardBody>
+          <div className="chart-wrapper">
+            <Doughnut data={this.state.data_pie} options={doughnutoption} />
             
-             
-          
-              </CardBody>
-    
-            </Card>
-       
-          </Col>
-          
-        </Row>
-   
+          </div>
+        </CardBody>
+      </Card>
+  
+      
+      
 
-        
-   
-
-        
-
-        
-      </div>
+     
     );
   }
 }
 
-export default Dashboard;
+export default Piechart;
 
