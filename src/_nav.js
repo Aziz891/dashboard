@@ -17,6 +17,15 @@ export default {
         variant: 'info'
         
       }
+    },
+    {
+      name: 'Other Departments',
+      url: '/dashboard3',
+      icon: 'icon-speedometer',
+      badge: {
+        variant: 'info'
+        
+      }
     }
   ]}
   //   },
