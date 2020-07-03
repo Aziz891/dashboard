@@ -2,6 +2,16 @@ import React, { Component, lazy, Suspense } from 'react';
 import axios from "axios";
 
 import { Bar, Line, Doughnut, Pie } from 'react-chartjs-2';
+// Doughnut.chartjs
+
+
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+// Chart.defaults.global.plugins.datalabels.display = false
+import { Chart } from 'react-chartjs-2';
+
+
+
+
 
 import {
   Badge,
@@ -35,6 +45,7 @@ const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
 let data_labels = []
+console.log(Doughnut.prototype) 
 
 // Card Chart 1
 const cardChartData1 = {
@@ -446,14 +457,47 @@ const bar_label = []
 const data_chart_line = {"woa": [], "eoa": [], "coa": [], "pesd": [], }
 let data_chart_line_test = {}
 
-const doughnutoption = { tooltips : {
+const doughnutoption = { legend: {labels: { 
+  filter: function(item, chart) {
+    // Logic to remove a particular legend item goes here
+    return !item.text.includes('Legend 1');}
+  }},
+  plugins: {
+        
+   
+    datalabels: {
+      formatter: function(value, ctx) {
+      
+        let sum = 0;
+        let dataArr = ctx.chart.data.datasets[0].data;
+        sum = ctx.chart.data.datasets[1].data
+        dataArr.map(function(data) {
+            sum += data;
+        });
+        
+        let percentage = (value*100 / sum).toFixed(2)+"%";
+        if ( (value*100 / sum) < 4) {
+          percentage = '';
+        }
+        return percentage;
+
+    
+      },
+      color: '#fff',
+      display : 'auto'
+           }
+
+  }
+  
+  ,
+   tooltips : {
   callbacks: {
       label: function(tooltip, data) {
         let label= ''
        
         label = label + data.labels[tooltip.index] + ' : '  
         label = label + data.datasets[0].data[tooltip.index] + ' ('
-        let perc = 100 * (data.datasets[0].data[tooltip.index])  /  (data.datasets[0].data.reduce((i,j) => (i+j), 0))
+        let perc = 100 * (data.datasets[0].data[tooltip.index])  /  (data.datasets[0].data.reduce((i,j) => (i+j), 0) + data.datasets[1].data)
         label = label + Math.round(perc *100)/100 +'%)'
         return label
       }
@@ -476,19 +520,19 @@ const mainChartOpts = {
   },
   maintainAspectRatio: false,
   legend: {
-    display: true,
+    display: false,
   },
   scales: {
     xAxes: [
       {
         type: 'time',
         distribution: 'series',
-        time: {
-            unit: 'day',
-            displayFormats: {
-              day: 'DD-MMM',
-            },
-        },
+        // time: {
+        //     // unit: 'day',
+        //     displayFormats: {
+        //       day: 'DD-MMM',
+        //     },
+        // },
         gridLines: {
           drawOnChartArea: false,
         },
@@ -514,12 +558,15 @@ const mainChartOpts = {
   // },
 };
 
-class Piechart extends Component {
+class 
+Piechart extends Component {
   constructor(props) {
     super(props);
+    
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    this.datehandle = this.datehandle.bind(this);
 
     this.state = {
       dropdownOpen: false,
@@ -528,13 +575,19 @@ class Piechart extends Component {
       data_pie : {}
     };
   }
+  datehandle(date) {
+    this.setState({
+      startDate: date
+    });
+  }
   
   call_api(api_url) {
     const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
     axios.get(api_url)
       .then(response => {
+        console.log('response454', response)
      
-         let PieData = { labels: response.data.labels, datasets: [{data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }]  }
+         let PieData = { labels: response.data.labels, datasets: [ {label: 'Total : ' + response.data.others , data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }, {label : 'Legend 1', data: response.data.others, hidden : true}]  }
          this.setState({ data_pie: PieData} );
  
  
@@ -550,7 +603,13 @@ class Piechart extends Component {
       radioSelected: radioSelected,
     });
  
-    this.call_api(radioSelected)
+    // if (radioSelected == 1) {
+    //   this.call_api(this.props.url + '?fromdate=2020-1-1')
+    // } else {
+      
+    //   this.call_api(this.props.url + '?fromdate=2016-1-1')
+
+    // }
     
     
     
@@ -560,12 +619,25 @@ class Piechart extends Component {
 
   
   componentDidMount() {
+    Chart.plugins.unregister(ChartDataLabels);
    this.call_api(this.props.url)
+  }
+  componentWillMount() {
+    this.call_api(this.props.url)
+    console.log('fdfdfd')
   }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   render() {
+    let typechart
+    if (this.props.isBar) {
+
+      typechart = <Bar data={this.state.data_pie} options={doughnutoption} plugins={[ChartDataLabels]} />
+
+    } else {
+      typechart = <Doughnut data={this.state.data_pie} options={doughnutoption} plugins={[ChartDataLabels]} />
+    }
 
     return (
    
@@ -577,8 +649,12 @@ class Piechart extends Component {
           </div>
         </CardHeader>
         <CardBody>
+       
           <div className="chart-wrapper">
-            <Doughnut data={this.state.data_pie} options={doughnutoption} />
+        
+ 
+          
+            {typechart}
             
           </div>
         </CardBody>

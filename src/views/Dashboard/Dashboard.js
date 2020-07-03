@@ -1,6 +1,8 @@
 import React, { Component, lazy, Suspense } from 'react';
 import axios from "axios";
-import { Bar, Line, Doughnut } from 'react-chartjs-2';
+import { Bar, Line, Doughnut, Chart } from 'react-chartjs-2';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 
 
 
@@ -346,7 +348,33 @@ const makeSparkLineData = (dataSetNo, variant) => {
   return () => data;
 };
 
-const doughnutoption = { tooltips : {
+const doughnutoption = {
+  plugins: {
+        
+  
+    datalabels: {
+      formatter: function(value, ctx) {
+      
+        let sum = 0;
+        let dataArr = ctx.chart.data.datasets[0].data;
+        dataArr.map(function(data) {
+            sum += data;
+        });
+        let percentage = (value*100 / sum).toFixed(2)+"%";
+        if ( (value*100 / sum) < 4) {
+          percentage = '';
+        }
+        return percentage;
+
+    
+      },
+      color: '#fff',
+      display : 'auto'
+           }
+
+  }
+  ,
+  tooltips : {
     callbacks: {
         label: function(tooltip, data) {
           let label= ''
@@ -485,10 +513,12 @@ const mainChartOpts = {
         type: 'time',
         distribution: 'series',
         time: {
-            unit: 'day',
-            displayFormats: {
-              day: 'DD-MMM',
-            },
+            
+            // displayFormats: {
+            //   day: 'DD-MMM',
+            //   quarter: 'QQ - YYYY',
+            //   month: 'YYYY',
+            // },
         },
         gridLines: {
           drawOnChartArea: false,
@@ -538,7 +568,7 @@ class Dashboard extends Component {
   switch (radioSelected) {
     case 1:
       query_period = '1'
-      mainChartOpts.scales.xAxes[0].time = {unit : 'day'}
+      mainChartOpts.scales.xAxes[0].time = {unit : 'month'}
       
       break;
       case 2:
@@ -549,7 +579,7 @@ class Dashboard extends Component {
         case 3:
           
           query_period = '2'
-          mainChartOpts.scales.xAxes[0].time = {unit : 'year'}
+          mainChartOpts.scales.xAxes[0].time = {unit : 'quarter'}
           break;
           
           default:
@@ -570,6 +600,7 @@ class Dashboard extends Component {
 
   axios.get(url_ips + '&period=' + query_period)
     .then(response => {
+      console.log(response.data)
 
 let deptData = {}
 let deptDataCharts = []
@@ -615,8 +646,9 @@ Object.keys(deptData).forEach(function (i, index) {
 let bar_data = []
 let bar_data_labels = []
 
-deptDataCharts.forEach((i) =>( bar_data_labels.push(i.label) ))
+deptDataCharts.forEach((i) =>( bar_data_labels.push(i.label + ' (' + i.data.reduce((i, j) => i  + j.y, 0   ) + ')') ))
 deptDataCharts.forEach((i) =>( bar_data.push( i.data.reduce((i, j) => i  + j.y, 0   ) ) ))
+// bar_data_labels.sort();
 
 
 let bar_data_colors = colorSet.slice(0, bar_data_labels.length)
@@ -646,6 +678,7 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
 
   
   componentDidMount() {
+    Chart.plugins.unregister(ChartDataLabels);
    this.call_api(2)
   }
 
@@ -671,8 +704,8 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
                     {/* <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button> */}
                     <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                       <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Day</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Month</Button>
+                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Quarter 1 </Button>
+                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Quarter 2</Button>
                         <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>Year</Button>
                       </ButtonGroup>
                     </ButtonToolbar>
@@ -682,15 +715,16 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
                       <Col sm="8">
                    
            
-           <Line data={this.state.data} options={mainChartOpts} height={300}  />
+           <Line data={this.state.data} options={mainChartOpts} height={400}  />
         
         
     
                
                       </Col>
                       <Col sm="4">
+                      {/* <ul>Total: 12321</ul> */}
 
-           <Doughnut data={this.state.data_pie} options={doughnutoption} />
+           <Doughnut data={this.state.data_pie} options={doughnutoption} plugins={[ChartDataLabels]} height = {200}/>
           
       
                       </Col>

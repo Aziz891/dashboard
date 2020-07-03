@@ -25,37 +25,18 @@ import {
   Progress,
   Row,
   Table,
-  
   CardColumns,
 } from 'reactstrap';
+import DatePicker from "react-datepicker";
+
+import "react-datepicker/dist/react-datepicker.css";
 
 class page_1 extends React.Component {
+  // state = {
+  //   startDate: new Date(),
+  //   toDate: new Date()
+  // };
 
-  
 
-    render() {
-      return (
-
-
-       
-   
-            <Table />
-    
- 
-         
-            
-          
-
-  
-
-      
-        
-
-        
-      
-     
-
-      );
-    }
   }
   export default page_1

@@ -9,7 +9,7 @@ class page_1 extends React.Component {
         <div>
             
             <Dashboard title={'CSD IPS Entries'}  url={'csd'} /> 
-            <Dashboard title={'DPED IPS Entries'}  url={'dped'} /> 
+            <Dashboard title={'AMD IPS Entries'}  url={'dped'} /> 
 
         </div>
   
