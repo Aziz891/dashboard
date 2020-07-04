@@ -39,387 +39,51 @@ const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
 let data_labels = []
 
-// Card Chart 1
-const cardChartData1 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: brandPrimary,
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [65, 59, 84, 84, 51, 55, 40],
-    },
-  ],
-};
-
-const doughnut = {
-  labels: [
-    'Red',
-    'Green',
-    'Yellow',
-  ],
-  datasets: [
-    {
-      data: [300, 50, 100],
-
-    }],
-};
 
 
-const cardChartOpts1 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent',
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        },
-
-      }],
-    yAxes: [
-      {
-        display: false,
-        ticks: {
-          display: false,
-          min: Math.min.apply(Math, cardChartData1.datasets[0].data) - 5,
-          max: Math.max.apply(Math, cardChartData1.datasets[0].data) + 5,
-        },
-      }],
-  },
-  elements: {
-    line: {
-      borderWidth: 1,
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  }
-}
-
-
-// Card Chart 2
-const cardChartData2 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: brandInfo,
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [1, 18, 9, 17, 34, 22, 11],
-    },
-  ],
-};
-
-const cardChartOpts2 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        gridLines: {
-          color: 'transparent',
-          zeroLineColor: 'transparent',
-        },
-        ticks: {
-          fontSize: 2,
-          fontColor: 'transparent',
-        },
-
-      }],
-    yAxes: [
-      {
-        display: false,
-        ticks: {
-          display: false,
-          min: Math.min.apply(Math, cardChartData2.datasets[0].data) - 5,
-          max: Math.max.apply(Math, cardChartData2.datasets[0].data) + 5,
-        },
-      }],
-  },
-  elements: {
-    line: {
-      tension: 0.00001,
-      borderWidth: 1,
-    },
-    point: {
-      radius: 4,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  },
-};
-
-// Card Chart 3
-const cardChartData3 = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.2)',
-      borderColor: 'rgba(255,255,255,.55)',
-      data: [78, 81, 80, 45, 34, 12, 40],
-    },
-  ],
-};
-
-const cardChartOpts3 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-  elements: {
-    line: {
-      borderWidth: 2,
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-    },
-  },
-};
-
-// Card Chart 4
-const cardChartData4 = {
-  labels: ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-  datasets: [
-    {
-      label: 'My First dataset',
-      backgroundColor: 'rgba(255,255,255,.3)',
-      borderColor: 'transparent',
-      data: [78, 81, 80, 45, 34, 12, 40, 75, 34, 89, 32, 68, 54, 72, 18, 98],
-    },
-  ],
-};
-
-const cardChartOpts4 = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false,
-        barPercentage: 0.6,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-};
-
-// Social Box Chart
-const socialBoxData = [
-  { data: [65, 59, 84, 84, 51, 55, 40], label: 'facebook' },
-  { data: [1, 13, 9, 17, 34, 41, 38], label: 'twitter' },
-  { data: [78, 81, 80, 45, 34, 12, 40], label: 'linkedin' },
-  { data: [35, 23, 56, 22, 97, 23, 64], label: 'google' },
-];
-
-const makeSocialBoxData = (dataSetNo) => {
-  const dataset = socialBoxData[dataSetNo];
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-    datasets: [
-      {
-        backgroundColor: 'rgba(255,255,255,.1)',
-        borderColor: 'rgba(255,255,255,.55)',
-        pointHoverBackgroundColor: '#fff',
-        borderWidth: 2,
-        data: dataset.data,
-        label: dataset.label,
-      },
-    ],
-  };
-  return () => data;
-};
-
-const socialChartOpts = {
-  tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  responsive: true,
-  maintainAspectRatio: false,
-  legend: {
-    display: false,
-  },
-  scales: {
-    xAxes: [
-      {
-        display: false,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-  elements: {
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3,
-    },
-  },
-};
-
-// sparkline charts
-const sparkLineChartData = [
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'New Clients',
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Recurring Clients',
-  },
-  {
-    data: [35, 23, 56, 22, 97, 23, 64],
-    label: 'Pageviews',
-  },
-  {
-    data: [65, 59, 84, 84, 51, 55, 40],
-    label: 'Organic',
-  },
-  {
-    data: [78, 81, 80, 45, 34, 12, 40],
-    label: 'CTR',
-  },
-  {
-    data: [1, 13, 9, 17, 34, 41, 38],
-    label: 'Bounce Rate',
-  },
-];
-
-const makeSparkLineData = (dataSetNo, variant) => {
-  const dataset = sparkLineChartData[dataSetNo];
-  const data = {
-    labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
-    datasets: [
-      {
-        backgroundColor: 'transparent',
-        borderColor: variant ? variant : '#c2cfd6',
-        data: dataset.data,
-        label: dataset.label,
-      },
-    ],
-  };
-  return () => data;
-};
 
 const doughnutoption = {
   plugins: {
-        
-  
+
+
     datalabels: {
-      formatter: function(value, ctx) {
-      
+      formatter: function (value, ctx) {
+
         let sum = 0;
         let dataArr = ctx.chart.data.datasets[0].data;
-        dataArr.map(function(data) {
-            sum += data;
+        dataArr.map(function (data) {
+          sum += data;
         });
-        let percentage = (value*100 / sum).toFixed(2)+"%";
-        if ( (value*100 / sum) < 4) {
+        let percentage = (value * 100 / sum).toFixed(2) + "%";
+        if ((value * 100 / sum) < 4) {
           percentage = '';
         }
         return percentage;
 
-    
+
       },
       color: '#fff',
-      display : 'auto'
-           }
+      display: 'auto'
+    }
 
   }
   ,
-  tooltips : {
-    callbacks: {
-        label: function(tooltip, data) {
-          let label= ''
-         
-          label = label + data.labels[tooltip.index] + ' : '  
-          label = label + data.datasets[0].data[tooltip.index] + ' ('
-          let perc = 100 * (data.datasets[0].data[tooltip.index])  /  (data.datasets[0].data.reduce((i,j) => (i+j), 0))
-          label = label + Math.round(perc *100)/100 +'%)'
-          return label
-        }
-    }
-}  }
-
-const sparklineChartOpts = {
   tooltips: {
-    enabled: false,
-    custom: CustomTooltips
-  },
-  responsive: true,
-  maintainAspectRatio: true,
-  scales: {
-    xAxes: [
-      {
-        display: false,
-      }],
-    yAxes: [
-      {
-        display: false,
-      }],
-  },
-  elements: {
-    line: {
-      borderWidth: 2,
-    },
-    point: {
-      radius: 0,
-      hitRadius: 10,
-      hoverRadius: 4,
-      hoverBorderWidth: 3,
-    },
-  },
-  legend: {
-    display: false,
-  },
-};
+    callbacks: {
+      label: function (tooltip, data) {
+        let label = ''
+
+        label = label + data.labels[tooltip.index] + ' : '
+        label = label + data.datasets[0].data[tooltip.index] + ' ('
+        let perc = 100 * (data.datasets[0].data[tooltip.index]) / (data.datasets[0].data.reduce((i, j) => (i + j), 0))
+        label = label + Math.round(perc * 100) / 100 + '%)'
+        return label
+      }
+    }
+  }
+}
+
+
 
 // Main Chart
 
@@ -445,7 +109,7 @@ const mainChart = {
     {
       label: 'My First dataset',
       backgroundColor: 'transparent',
-      lineTension : 0,
+      lineTension: 0,
       borderColor: brandInfo,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 2,
@@ -454,7 +118,7 @@ const mainChart = {
     },
     {
       label: 'My Second dataset',
-      lineTension : 0,
+      lineTension: 0,
       backgroundColor: 'transparent',
       borderColor: brandSuccess,
       pointHoverBackgroundColor: '#fff',
@@ -463,17 +127,17 @@ const mainChart = {
     },
     {
       label: 'My Third dataset',
-      lineTension : 0,
+      lineTension: 0,
       backgroundColor: 'transparent',
       borderColor: brandDanger,
       pointHoverBackgroundColor: '#fff',
-   
+
       data: data3,
     },
     {
       label: 'My fourth dataset',
       backgroundColor: 'transparent',
-      lineTension : 0,
+      lineTension: 0,
       borderColor: brandWarning,
       pointHoverBackgroundColor: '#fff',
       borderWidth: 2,
@@ -484,13 +148,13 @@ const mainChart = {
 };
 const bar_data = []
 const bar_label = []
-const data_chart_line = {"woa": [], "eoa": [], "coa": [], "pesd": [], }
+const data_chart_line = { "woa": [], "eoa": [], "coa": [], "pesd": [], }
 let data_chart_line_test = {}
 
 
 
 const mainChartOpts = {
- 
+
   tooltips: {
     enabled: false,
     custom: CustomTooltips,
@@ -498,7 +162,7 @@ const mainChartOpts = {
     mode: 'index',
     position: 'nearest',
     callbacks: {
-      labelColor: function(tooltipItem, chart) {
+      labelColor: function (tooltipItem, chart) {
         return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor }
       }
     }
@@ -512,13 +176,18 @@ const mainChartOpts = {
       {
         type: 'time',
         distribution: 'series',
+        ticks: {
+
+          autoSkipPadding: 20
+        }
+        ,
         time: {
-            
-            // displayFormats: {
-            //   day: 'DD-MMM',
-            //   quarter: 'QQ - YYYY',
-            //   month: 'YYYY',
-            // },
+
+          // displayFormats: {
+          //   day: 'DD-MMM-YYYY',
+          //   quarter: 'QQ - YYYY',
+          //   month: 'MMM-YYYY',
+          // },
         },
         gridLines: {
           drawOnChartArea: false,
@@ -532,7 +201,7 @@ const mainChartOpts = {
           // stepSize: Math.ceil(1000 / 5),
           // max: 1000,
         },
-    
+
       }],
   },
   // elements: {
@@ -556,107 +225,144 @@ class Dashboard extends Component {
       dropdownOpen: false,
       radioSelected: 2,
       data: {},
-      data_pie : {}
+      data_pie: {},
+      mainChartOpts: mainChartOpts,
+      startDate: new Date(2020, 1, 1),
+      endDate: new Date()
     };
   }
-  
- call_api(radioSelected) {
 
-   const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
-  let  url_ips = 'http://10.75.81.29:81/faults/ips/?'
-  let query_period =''
-  switch (radioSelected) {
-    case 1:
-      query_period = '1'
-      mainChartOpts.scales.xAxes[0].time = {unit : 'month'}
-      
-      break;
-      case 2:
-        
-        query_period = '0'
-        mainChartOpts.scales.xAxes[0].time = {unit : 'month'}
-        break;
-        case 3:
-          
-          query_period = '2'
-          mainChartOpts.scales.xAxes[0].time = {unit : 'quarter'}
+  call_api(radioSelected) {
+
+    const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
+
+    let url_ips = 'https://cors-anywhere.herokuapp.com/https://www.quandl.com/api/v3/datasets/OPEC/ORB.json?api_key=tJ5NvWzyGb-usN7je4rf'
+    url_ips = url_ips + '&start_date=' + this.state.startDate.toISOString().slice(0, 10)
+    url_ips = url_ips + '&end_date=' + this.state.endDate.toISOString().slice(0, 10)
+    url_ips = url_ips + '&end_date=' + this.state.endDate.toISOString().slice(0, 10)
+    url_ips = url_ips + ((radioSelected) => {
+      switch (radioSelected) {
+        case 1:
+          return '&collapse=weekly'
+
           break;
-          
-          default:
-            query_period = '0'
-            break;
+        case 2:
+          return '&collapse=daily'
+
+          break;
+        case 3:
+          return '&collapse=monthly'
+
+          break;
+
+        default:
+          break;
+      }
+    })(radioSelected)
+
+    console.log('date', this.state.startDate.toISOString().slice(0, 10), this.state.startDate)
+    console.log('date', this.state.endDate.toISOString().slice(0, 10), this.state.endDate)
+    let query_period = ''
+    switch (radioSelected) {
+      case 1:
+        query_period = '1'
+        mainChartOpts.scales.xAxes[0].time = { unit: 'day' }
+
+        break;
+      case 2:
+
+        query_period = '0'
+        mainChartOpts.scales.xAxes[0].time = { unit: 'week' }
+        break;
+      case 3:
+
+        query_period = '2'
+        mainChartOpts.scales.xAxes[0].time = { unit: 'month' }
+        break;
+
+      default:
+        query_period = '0'
+        break;
+    }
+
+    // if(this.props.url == 'csd') {
+    //   url_ips = url_ips + 'department=1'
+    // }
+    // else if(this.props.url == 'dped') {
+    //   url_ips = url_ips + 'department=2'
+    // }
+    // else {
+
+    //   url_ips = url_ips + 'department=0'
+    // }
+
+    // axios.get(url_ips + '&period=' + query_period)
+    var config = {
+      headers: { 'Access-Control-Allow-Origin': '*' }
+    }
+    axios.get(url_ips, config)
+      .then(response => {
+
+        let deptData = {}
+        let opecData = []
+        let deptDataCharts = []
+        response.data.dataset.data.forEach((item, index) => { opecData.push({ t: item[0], y: item[1] }) })
+
+        // response.data.count.forEach(function (i) {
+
+        //   if (typeof deptData[i.department] === 'undefined') {
+
+        //     deptData[i.department] = [{
+        //       t: i.date,
+        //       y: i.count
+        //     }]
+        //   } else {
+
+        //     deptData[i.department].push({
+        //       t: i.date,
+        //       y: i.count
+        //     })
+
+
+        //   }
+
+        // })
+
+        Object.keys(deptData).forEach(function (i, index) {
+
+          deptDataCharts.push({
+            label: i,
+            backgroundColor: 'transparent',
+            lineTension: 0,
+            borderColor: colorSet[index],
+
+            pointHoverBackgroundColor: '#fff',
+            borderWidth: 2,
+            fill: '-1',
+
+
+            data: deptData[i]
+          })
+
+
+        })
+        let bar_data = []
+        let bar_data_labels = []
+
+        deptDataCharts.forEach((i) => (bar_data_labels.push(i.label + ' (' + i.data.reduce((i, j) => i + j.y, 0) + ')')))
+        deptDataCharts.forEach((i) => (bar_data.push(i.data.reduce((i, j) => i + j.y, 0))))
+        // bar_data_labels.sort();
+
+
+        let bar_data_colors = colorSet.slice(0, bar_data_labels.length)
+        // let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundColor: colorSet.slice(0, bar_data_labels.length) }]  }
+        // let PieData = { labels: bar_data_labels, datasets: [{data: bar_data }]  }
+        let PieData = { datasets: [{ data: opecData }] }
+
+
+        this.setState({ data_pie: PieData, data: { datasets: [{ data: opecData }] } });
+      })
   }
-  
-  if(this.props.url == 'csd') {
-    url_ips = url_ips + 'department=1'
-  }
-  else if(this.props.url == 'dped') {
-    url_ips = url_ips + 'department=2'
-  }
-  else {
-    
-    url_ips = url_ips + 'department=0'
-  }
-
-  axios.get(url_ips + '&period=' + query_period)
-    .then(response => {
-      console.log(response.data)
-
-let deptData = {}
-let deptDataCharts = []
-
-response.data.count.forEach(function (i) {
-
-  if (typeof deptData[i.department] === 'undefined') {
-
-    deptData[i.department] = [{
-      t: i.date,
-      y: i.count
-    }]
-  } else {
-
-    deptData[i.department].push({
-      t: i.date,
-      y: i.count
-    })
-
-
-  }
-
-})
-
-Object.keys(deptData).forEach(function (i, index) {
-
-  deptDataCharts.push({
-    label: i,
-    backgroundColor: 'transparent',
-    lineTension : 0,
-    borderColor: colorSet[index],
-    
-    pointHoverBackgroundColor: '#fff',
-    borderWidth: 2,
-    fill: '-1',
-
-
-    data: deptData[i]
-  })
-  
-  
-})
-let bar_data = []
-let bar_data_labels = []
-
-deptDataCharts.forEach((i) =>( bar_data_labels.push(i.label + ' (' + i.data.reduce((i, j) => i  + j.y, 0   ) + ')') ))
-deptDataCharts.forEach((i) =>( bar_data.push( i.data.reduce((i, j) => i  + j.y, 0   ) ) ))
-// bar_data_labels.sort();
-
-
-let bar_data_colors = colorSet.slice(0, bar_data_labels.length)
-let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundColor: colorSet.slice(0, bar_data_labels.length) }]  }
-    
-      
-      this.setState({ data_pie: PieData,   data: { datasets: deptDataCharts}} );
-})}
   toggle() {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
@@ -664,23 +370,30 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
   }
 
   onRadioBtnClick(radioSelected) {
+
+
+
     this.setState({
       radioSelected: radioSelected,
-    });
 
+    });
     this.call_api(radioSelected)
-    
-    
-    
+
+
+
+
+
   }
 
 
 
-  
+
   componentDidMount() {
     Chart.plugins.unregister(ChartDataLabels);
-   this.call_api(2)
+    console.log('mount')
+    this.call_api(2)
   }
+
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
@@ -688,7 +401,7 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
 
     return (
       <div className="animated fadeIn">
- 
+
 
 
         <Row>
@@ -712,42 +425,36 @@ let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundC
                   </Col>
                 </Row>
                 <Row>
-                      <Col sm="8">
-                   
-           
-           <Line data={this.state.data} options={mainChartOpts} height={400}  />
-        
-        
-    
-               
-                      </Col>
-                      <Col sm="4">
-                      {/* <ul>Total: 12321</ul> */}
 
-           <Doughnut data={this.state.data_pie} options={doughnutoption} plugins={[ChartDataLabels]} height = {200}/>
-          
-      
-                      </Col>
-                    </Row>
-           
-            
-             
-          
+
+
+                  <Line data={this.state.data} options={this.state.mainChartOpts} height={400} />
+
+
+
+
+
+
+                </Row>
+
+
+
+
               </CardBody>
-    
+
             </Card>
-       
+
           </Col>
-          
+
         </Row>
-   
 
-        
-   
 
-        
 
-        
+
+
+
+
+
       </div>
     );
   }
