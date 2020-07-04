@@ -35,6 +35,8 @@ class page_1 extends React.Component {
   constructor(props) {
     super(props);
     this.lineElement = React.createRef()
+    this.pieElement1 = React.createRef()
+    this.pieElement2 = React.createRef()
     this.handleDateChange = this.handleDateChange.bind(this)
     this.state = {
       startDate: new Date(2020,1,1)
@@ -72,8 +74,10 @@ class page_1 extends React.Component {
       default:
         break;
     }
-    setTimeout(() => {console.log('selected', this.lineElement.current.state.startDate, date)
+    setTimeout(() => {console.log('selected', this.lineElement.current.state.startDate, date, this.pieElement1)
     this.lineElement.current.call_api(this.lineElement.current.state.radioSelected)
+    this.pieElement1.current.call_api('http://10.75.81.29:81/faults/ipsrelays/')
+    this.pieElement2.current.call_api('http://10.75.81.29:81/faults/ipstechnology/')
   
   } , 100 )
     
@@ -98,11 +102,11 @@ class page_1 extends React.Component {
           <CardColumns className="cols-2">
             <div>
 
-              <Piechart url={'http://10.75.81.29:81/faults/ipsrelays/'} title={'Most Common Relays in 2020'} isBar={true}  />
+              <Piechart url={'http://10.75.81.29:81/faults/ipsrelays/'} title={'Most Common Relays in 2020'} startDate={this.state.startDate} endDate={this.state.endDate} isBar={true} ref={this.pieElement1}  />
             </div>
             <div>
 
-              <Piechart url={'http://10.75.81.29:81/faults/ipstechnology'} title={'Breakdown of Relay Technology in 2020'} />
+              <Piechart url={'http://10.75.81.29:81/faults/ipstechnology/'} title={'Breakdown of Relay Technology in 2020'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.pieElement2} />
             </div>
 
 

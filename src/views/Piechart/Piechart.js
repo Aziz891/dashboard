@@ -470,7 +470,7 @@ const doughnutoption = { legend: {labels: {
       
         let sum = 0;
         let dataArr = ctx.chart.data.datasets[0].data;
-        sum = ctx.chart.data.datasets[1].data
+        // sum = ctx.chart.data.datasets[1].data
         dataArr.map(function(data) {
             sum += data;
         });
@@ -497,7 +497,7 @@ const doughnutoption = { legend: {labels: {
        
         label = label + data.labels[tooltip.index] + ' : '  
         label = label + data.datasets[0].data[tooltip.index] + ' ('
-        let perc = 100 * (data.datasets[0].data[tooltip.index])  /  (data.datasets[0].data.reduce((i,j) => (i+j), 0) + data.datasets[1].data)
+        let perc = 100 * (data.datasets[0].data[tooltip.index])  /  (data.datasets[0].data.reduce((i,j) => (i+j), 0) )
         label = label + Math.round(perc *100)/100 +'%)'
         return label
       }
@@ -564,9 +564,9 @@ Piechart extends Component {
     super(props);
     
 
-    this.toggle = this.toggle.bind(this);
-    this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
-    this.datehandle = this.datehandle.bind(this);
+    // this.toggle = this.toggle.bind(this);
+    // this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    // this.datehandle = this.datehandle.bind(this);
 
     this.state = {
       dropdownOpen: false,
@@ -583,25 +583,25 @@ Piechart extends Component {
   
   call_api(api_url) {
     const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
-    axios.get(api_url)
+    axios.get(api_url + `?fromdate=${this.props.startDate.toISOString().slice(0, 10)}`)
       .then(response => {
-        console.log('response454', response)
-     
-         let PieData = { labels: response.data.labels, datasets: [ {label: 'Total : ' + response.data.others , data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }, {label : 'Legend 1', data: response.data.others, hidden : true}]  }
+        
+        let PieData = { labels: response.data.labels, datasets: [ {label: 'Total : ' + response.data.others , data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }]  }
+        console.log('response454', this, PieData)
          this.setState({ data_pie: PieData} );
  
  
   })}
-  toggle() {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen,
-    });
-  }
+  // toggle() {
+  //   this.setState({
+  //     dropdownOpen: !this.state.dropdownOpen,
+  //   });
+  // }
 
-  onRadioBtnClick(radioSelected) {
-    this.setState({
-      radioSelected: radioSelected,
-    });
+  // onRadioBtnClick(radioSelected) {
+  //   this.setState({
+  //     radioSelected: radioSelected,
+  //   });
  
     // if (radioSelected == 1) {
     //   this.call_api(this.props.url + '?fromdate=2020-1-1')
@@ -613,7 +613,7 @@ Piechart extends Component {
     
     
     
-  }
+  // }
 
 
 
@@ -622,10 +622,10 @@ Piechart extends Component {
     Chart.plugins.unregister(ChartDataLabels);
    this.call_api(this.props.url)
   }
-  componentWillMount() {
-    this.call_api(this.props.url)
-    console.log('fdfdfd')
-  }
+  // componentWillMount() {
+  //   this.call_api(this.props.url)
+  //   console.log('fdfdfd')
+  // }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
