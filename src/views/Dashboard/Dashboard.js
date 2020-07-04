@@ -236,29 +236,29 @@ class Dashboard extends Component {
 
     const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
 
-    let url_ips = 'https://cors-anywhere.herokuapp.com/https://www.quandl.com/api/v3/datasets/OPEC/ORB.json?api_key=tJ5NvWzyGb-usN7je4rf'
-    url_ips = url_ips + '&start_date=' + this.state.startDate.toISOString().slice(0, 10)
-    url_ips = url_ips + '&end_date=' + this.state.endDate.toISOString().slice(0, 10)
-    url_ips = url_ips + '&end_date=' + this.state.endDate.toISOString().slice(0, 10)
-    url_ips = url_ips + ((radioSelected) => {
-      switch (radioSelected) {
-        case 1:
-          return '&collapse=weekly'
+    let url_ips = 'http://10.75.81.29:81/faults/ips/?'
+    url_ips = url_ips + '&fromdate=' + this.props.startDate.toISOString().slice(0, 10)
+    url_ips = url_ips + '&todate=' + this.props.endDate.toISOString().slice(0, 10)
+    
+    // url_ips = url_ips + ((radioSelected) => {
+    //   switch (radioSelected) {
+    //     case 1:
+    //       return '&collapse=weekly'
 
-          break;
-        case 2:
-          return '&collapse=daily'
+    //       break;
+    //     case 2:
+    //       return '&collapse=daily'
 
-          break;
-        case 3:
-          return '&collapse=monthly'
+    //       break;
+    //     case 3:
+    //       return '&collapse=monthly'
 
-          break;
+    //       break;
 
-        default:
-          break;
-      }
-    })(radioSelected)
+    //     default:
+    //       break;
+    //   }
+    // })(radioSelected)
 
     console.log('date', this.state.startDate.toISOString().slice(0, 10), this.state.startDate)
     console.log('date', this.state.endDate.toISOString().slice(0, 10), this.state.endDate)
@@ -271,13 +271,13 @@ class Dashboard extends Component {
         break;
       case 2:
 
-        query_period = '0'
-        mainChartOpts.scales.xAxes[0].time = { unit: 'week' }
+        query_period = '2'
+        mainChartOpts.scales.xAxes[0].time = { unit: 'month' }
         break;
       case 3:
 
-        query_period = '2'
-        mainChartOpts.scales.xAxes[0].time = { unit: 'month' }
+        query_period = '3'
+        mainChartOpts.scales.xAxes[0].time = { unit: 'quarter' }
         break;
 
       default:
@@ -285,48 +285,48 @@ class Dashboard extends Component {
         break;
     }
 
-    // if(this.props.url == 'csd') {
-    //   url_ips = url_ips + 'department=1'
-    // }
-    // else if(this.props.url == 'dped') {
-    //   url_ips = url_ips + 'department=2'
-    // }
-    // else {
+    if(this.props.url == 'csd') {
+      url_ips = url_ips + '&department=1'
+    }
+    else if(this.props.url == 'dped') {
+      url_ips = url_ips + '&department=2'
+    }
+    else {
 
-    //   url_ips = url_ips + 'department=0'
-    // }
+      url_ips = url_ips + '&department=0'
+    }
 
     // axios.get(url_ips + '&period=' + query_period)
     var config = {
       headers: { 'Access-Control-Allow-Origin': '*' }
     }
-    axios.get(url_ips, config)
+    axios.get(url_ips + '&period=' + query_period)
       .then(response => {
 
         let deptData = {}
         let opecData = []
         let deptDataCharts = []
-        response.data.dataset.data.forEach((item, index) => { opecData.push({ t: item[0], y: item[1] }) })
+        // response.data.dataset.data.forEach((item, index) => { opecData.push({ t: item[0], y: item[1] }) })
 
-        // response.data.count.forEach(function (i) {
+        response.data.count.forEach(function (i) {
 
-        //   if (typeof deptData[i.department] === 'undefined') {
+          if (typeof deptData[i.department] === 'undefined') {
 
-        //     deptData[i.department] = [{
-        //       t: i.date,
-        //       y: i.count
-        //     }]
-        //   } else {
+            deptData[i.department] = [{
+              t: i.date,
+              y: i.count
+            }]
+          } else {
 
-        //     deptData[i.department].push({
-        //       t: i.date,
-        //       y: i.count
-        //     })
+            deptData[i.department].push({
+              t: i.date,
+              y: i.count
+            })
 
 
-        //   }
+          }
 
-        // })
+        })
 
         Object.keys(deptData).forEach(function (i, index) {
 
@@ -352,6 +352,7 @@ class Dashboard extends Component {
         deptDataCharts.forEach((i) => (bar_data_labels.push(i.label + ' (' + i.data.reduce((i, j) => i + j.y, 0) + ')')))
         deptDataCharts.forEach((i) => (bar_data.push(i.data.reduce((i, j) => i + j.y, 0))))
         // bar_data_labels.sort();
+        console.log(deptDataCharts)
 
 
         let bar_data_colors = colorSet.slice(0, bar_data_labels.length)
@@ -360,7 +361,7 @@ class Dashboard extends Component {
         let PieData = { datasets: [{ data: opecData }] }
 
 
-        this.setState({ data_pie: PieData, data: { datasets: [{ data: opecData }] } });
+        this.setState({ data_pie: PieData, data: { datasets: deptDataCharts } });
       })
   }
   toggle() {
@@ -417,8 +418,8 @@ class Dashboard extends Component {
                     {/* <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button> */}
                     <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                       <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Quarter 1 </Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Quarter 2</Button>
+                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Quarter 1 </Button>
+                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Quarter 2</Button>
                         <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>Year</Button>
                       </ButtonGroup>
                     </ButtonToolbar>

@@ -98,7 +98,7 @@ class page_1 extends React.Component {
           <CardColumns className="cols-2">
             <div>
 
-              <Piechart url={'http://10.75.81.29:81/faults/ipsrelays/'} title={'Most Common Relays in 2020'} isBar={true} />
+              <Piechart url={'http://10.75.81.29:81/faults/ipsrelays/'} title={'Most Common Relays in 2020'} isBar={true}  />
             </div>
             <div>
 
