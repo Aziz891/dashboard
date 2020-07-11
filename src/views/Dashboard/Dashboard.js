@@ -271,17 +271,17 @@ class Dashboard extends Component {
         break;
       case 2:
 
-        query_period = '0'
-        mainChartOpts.scales.xAxes[0].time = { unit: 'week' }
-        break;
-      case 3:
-
         query_period = '2'
         mainChartOpts.scales.xAxes[0].time = { unit: 'month' }
         break;
+      case 3:
+
+        query_period = '3'
+        mainChartOpts.scales.xAxes[0].time = { unit: 'quarter' }
+        break;
 
       default:
-        query_period = '0'
+        query_period = '1'
         break;
     }
 
@@ -360,7 +360,7 @@ class Dashboard extends Component {
         let PieData = { datasets: [{ data: opecData }] }
 
 
-        this.setState({ data_pie: PieData, data: { datasets: [{ data: opecData }] } });
+        this.setState({ data_pie: PieData, data: { datasets: [{ data: bar_data }] } });
       })
   }
   toggle() {

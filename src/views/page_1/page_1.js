@@ -35,7 +35,7 @@ class page_1 extends React.Component {
   constructor(props) {
     super(props);
     this.lineElement = React.createRef()
-    this.handleDateChange = this.handleDateChange.bind(this)
+    // this.handleDateChange = this.handleDateChange.bind(this)
     this.state = {
       startDate: new Date(2020,1,1)
       , endDate: new Date()
@@ -77,6 +77,12 @@ class page_1 extends React.Component {
   
   } , 100 )
     
+  }
+  componentDidMount() {
+    console.log('refs', this.lineElement, this.pieElement1)
+
+
+
   }
   render() {
     return (
