@@ -470,6 +470,7 @@ const doughnutoption = { legend: {labels: {
       
         let sum = 0;
         let dataArr = ctx.chart.data.datasets[0].data;
+
         // sum = ctx.chart.data.datasets[1].data
         dataArr.map(function(data) {
             sum += data;
@@ -479,6 +480,7 @@ const doughnutoption = { legend: {labels: {
         if ( (value*100 / sum) < 4) {
           percentage = '';
         }
+        // return ''
         return percentage;
 
     
@@ -572,7 +574,8 @@ Piechart extends Component {
       dropdownOpen: false,
       radioSelected: 2,
       data: {},
-      data_pie : {}
+      data_pie : {},
+      others: 0
     };
   }
   datehandle(date) {
@@ -588,7 +591,8 @@ Piechart extends Component {
         
         let PieData = { labels: response.data.labels, datasets: [ {label: 'Total : ' + response.data.others , data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }]  }
         console.log('response454', this, PieData)
-         this.setState({ data_pie: PieData} );
+        
+         this.setState({ data_pie: PieData , others: response.data.others} );
  
  
   })}

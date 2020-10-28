@@ -92,6 +92,13 @@ class page_1 extends React.Component {
 
           <DatePicker onChange={(date, event) => this.handleDateChange(date, event, 1)} selected={this.state.startDate}  />
           <DatePicker onChange={(date, event) => this.handleDateChange(date, event, 2)} selected={this.state.endDate}  />
+          <div>
+
+              <Button title="export" onClick={(e) => {
+         e.preventDefault();
+        window.location.href=`http://10.75.81.29:81/faults/ips_export/?fromdate=${this.state.startDate.toISOString().slice(0, 10)}&todate=${this.state.endDate.toISOString().slice(0, 10)}`;
+      }}   > Export </Button>
+          </div>
         </div>
         <div>
 
@@ -102,11 +109,11 @@ class page_1 extends React.Component {
           <CardColumns className="cols-2">
             <div>
 
-              <Piechart url={'http://10.75.81.29:81/faults/ipsrelays/'} title={'Most Common Relays in 2020'} startDate={this.state.startDate} endDate={this.state.endDate} isBar={true} ref={this.pieElement1}  />
+              <Piechart url={'http://10.75.81.29:81/faults/ipsrelays/'} title={'Most Common Relays'} startDate={this.state.startDate} endDate={this.state.endDate} isBar={true} ref={this.pieElement1}  />
             </div>
             <div>
 
-              <Piechart url={'http://10.75.81.29:81/faults/ipstechnology/'} title={'Breakdown of Relay Technology in 2020'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.pieElement2} />
+              <Piechart url={'http://10.75.81.29:81/faults/ipstechnology/'} title={'Breakdown of Relay Technology'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.pieElement2} />
             </div>
 
 

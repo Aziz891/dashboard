@@ -260,8 +260,8 @@ class Dashboard extends Component {
     //   }
     // })(radioSelected)
 
-    console.log('date', this.state.startDate.toISOString().slice(0, 10), this.state.startDate)
-    console.log('date', this.state.endDate.toISOString().slice(0, 10), this.state.endDate)
+    
+    
     let query_period = ''
     switch (radioSelected) {
       case 1:
@@ -352,7 +352,8 @@ class Dashboard extends Component {
         deptDataCharts.forEach((i) => (bar_data_labels.push(i.label + ' (' + i.data.reduce((i, j) => i + j.y, 0) + ')')))
         deptDataCharts.forEach((i) => (bar_data.push(i.data.reduce((i, j) => i + j.y, 0))))
         // bar_data_labels.sort();
-        console.log(deptDataCharts)
+        console.log('data', deptDataCharts)
+
 
 
         let bar_data_colors = colorSet.slice(0, bar_data_labels.length)
@@ -391,7 +392,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     Chart.plugins.unregister(ChartDataLabels);
-    console.log('mount')
+    
     this.call_api(2)
   }
 
@@ -418,9 +419,9 @@ class Dashboard extends Component {
                     {/* <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button> */}
                     <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                       <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Quarter 1 </Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Quarter 2</Button>
-                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>Year</Button>
+                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(1)} active={this.state.radioSelected === 1}>Day </Button>
+                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(2)} active={this.state.radioSelected === 2}>Month</Button>
+                        <Button color="outline-secondary" onClick={() => this.onRadioBtnClick(3)} active={this.state.radioSelected === 3}>Quarter</Button>
                       </ButtonGroup>
                     </ButtonToolbar>
                   </Col>
