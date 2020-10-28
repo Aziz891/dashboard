@@ -281,7 +281,7 @@ class Dashboard extends Component {
         break;
 
       default:
-        query_period = '0'
+        query_period = '1'
         break;
     }
 
