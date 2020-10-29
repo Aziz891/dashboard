@@ -236,7 +236,7 @@ class Dashboard extends Component {
 
     const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
 
-    let url_ips = 'http://10.75.81.29:81/faults/ips/?'
+    let url_ips =  this.props.url_request    //'http://10.75.81.29:81/faults/ips/?'
     url_ips = url_ips + '&fromdate=' + this.props.startDate.toISOString().slice(0, 10)
     url_ips = url_ips + '&todate=' + this.props.endDate.toISOString().slice(0, 10)
     

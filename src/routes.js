@@ -43,7 +43,7 @@ const routes = [
   { path: '/', exact: true, name: 'Home' },
   { path: '/dashboard', name: 'PED', component: Dashboard },
   { path: '/dashboard2', name: 'Others', component: Dashboard2 },
-  { path: '/dashboard3', name: 'Others', component: Dashboard3 },
+  { path: '/dashboard3', name: 'Cape', component: Dashboard3 },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },

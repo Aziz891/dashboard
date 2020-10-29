@@ -1,0 +1,6 @@
+{
+  "name": "Piechart_generic",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./Piechart_generic.js"
+}

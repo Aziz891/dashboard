@@ -1,23 +1,56 @@
 export default {
   items: [
     {
-      name: 'PED',
-      url: '/dashboard',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info'
-       
-      }
-    },
+      name: 'IPS',
+      url: '/base',
+      icon: 'icon-pie-chart',
+      children: [
+
+
+        {name: 'PED',
+        url: '/dashboard',
+        icon: 'icon-speedometer',
+        badge: {
+          variant: 'info'
+         
+        }
+      },
+      {
+        name: 'Other Departments',
+        url: '/dashboard2',
+        icon: 'icon-speedometer',
+        badge: {
+          variant: 'info'
+          
+        }
+      },
+      ] },
     {
-      name: 'Other Departments',
-      url: '/dashboard2',
-      icon: 'icon-speedometer',
-      badge: {
-        variant: 'info'
-        
-      }
-    },
+      name: 'CAPE',
+      url: '/base',
+      icon: 'icon-pie-chart',
+      children: [
+
+
+        {name: 'Bus Stats',
+        url: '/dashboard3',
+        icon: 'icon-speedometer',
+        badge: {
+          variant: 'info'
+         
+        }
+      },
+      {
+        name: 'cape2',
+        url: '/dashboard2',
+        icon: 'icon-speedometer',
+        badge: {
+          variant: 'info'
+          
+        }
+      },
+      ] },
+
     // {
     //   name: 'Other Departments',
     //   url: '/dashboard3',
@@ -26,7 +59,7 @@ export default {
     //     variant: 'info'
         
     //   }
-    // // }
+    // }
     // {
     //   name: 'Colors',
     //   url: '/theme/colors',
@@ -270,7 +303,8 @@ export default {
     //   icon: 'icon-ban',
     //   attributes: { disabled: true },
     // },
-  ]}
+  ]
+}
  
     // {
     //   title: true,

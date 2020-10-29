@@ -34,7 +34,12 @@ import "react-datepicker/dist/react-datepicker.css";
 class page_1 extends React.Component {
   constructor(props) {
     super(props);
+    this.line_url = 'http://10.75.81.29:81/faults/ips/?'
+    this.pie1_url = 'http://10.75.81.29:81/faults/ipsrelays/'
+    this.pie2_url = 'http://10.75.81.29:81/faults/ipstechnology/'
     this.lineElement = React.createRef()
+    this.pieElement1 = React.createRef()
+    this.pieElement2 = React.createRef()
     // this.handleDateChange = this.handleDateChange.bind(this)
     this.state = {
       startDate: new Date(2020,1,1)
@@ -74,8 +79,8 @@ class page_1 extends React.Component {
     }
     setTimeout(() => {console.log('selected', this.lineElement.current.state.startDate, date, this.pieElement1)
     this.lineElement.current.call_api(this.lineElement.current.state.radioSelected)
-    this.pieElement1.current.call_api('http://10.75.81.29:81/faults/ipsrelays/')
-    this.pieElement2.current.call_api('http://10.75.81.29:81/faults/ipstechnology/')
+    this.pieElement1.current.call_api(this.pie1_url)
+    this.pieElement2.current.call_api(this.pie2_url)
   
   } , 100 )
     
@@ -106,18 +111,18 @@ class page_1 extends React.Component {
         </div>
         <div>
 
-          <Dashboard url={'ped'} title={'PED IPS Entries'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.lineElement} />
+          <Dashboard url_request={this.line_url} url={'ped'} title={'PED IPS Entries'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.lineElement} />
         </div>
         <div>
 
           <CardColumns className="cols-2">
             <div>
 
-              <Piechart url={'http://10.75.81.29:81/faults/ipsrelays/'} title={'Most Common Relays'} startDate={this.state.startDate} endDate={this.state.endDate} isBar={true} ref={this.pieElement1}  />
+              <Piechart url={this.pie1_url} title={'Most Common Relays'} startDate={this.state.startDate} endDate={this.state.endDate} isBar={true} ref={this.pieElement1}  />
             </div>
             <div>
 
-              <Piechart url={'http://10.75.81.29:81/faults/ipstechnology/'} title={'Breakdown of Relay Technology'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.pieElement2} />
+              <Piechart url={this.pie2_url} title={'Breakdown of Relay Technology'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.pieElement2} />
             </div>
 
 

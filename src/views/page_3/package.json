@@ -1,6 +1,6 @@
 {
-  "name": "page_1",
+  "name": "page_3",
   "version": "0.0.0",
   "private": true,
-  "main": "./page_1.js"
+  "main": "./page_3.js"
 }
