@@ -587,7 +587,9 @@ Piechart_generic extends Component {
   
   call_api(api_url) {
     const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
-    axios.get(api_url)
+    axios.get(api_url +  `&fromdate=${this.props.startDate.toISOString().slice(0, 10)}` +
+    `&todate=${this.props.endDate.toISOString().slice(0, 10)}`
+    )
       .then(response => {
         console.log('response454', response)
      

@@ -94,12 +94,12 @@ class page_2 extends React.Component {
         </div>
         <div>
 
-          <Dashboard url={'dped'} title={'AMD IPS Entries'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.lineElement1} />
+          <Dashboard url_request={'http://10.75.81.29:81/faults/ips/?'} url={'dped'} title={'AMD IPS Entries'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.lineElement1} />
         </div>
    
         <div>
 
-          <Dashboard url={'csd'} title={'CSD IPS Entries'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.lineElement} />
+          <Dashboard  url_request={'http://10.75.81.29:81/faults/ips/?'} url={'csd'} title={'CSD IPS Entries'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.lineElement} />
         </div>
 
 

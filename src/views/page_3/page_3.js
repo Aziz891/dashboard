@@ -36,9 +36,9 @@ class page_3 extends page_1 {
 
   constructor(props) {
     super(props);
-    this.line_url = 'http://127.0.0.1:8000/faults/cape/?data=1'
-    this.pie1_url = 'http://127.0.0.1:8000/faults/cape/?data=2'
-    this.pie2_url = 'http://127.0.0.1:8000/faults/cape/?data=3'
+    this.line_url = 'http://10.75.81.29:81/faults/cape/?data=1'
+    this.pie1_url = 'http://10.75.81.29:81/faults/cape/?data=2'
+    this.pie2_url = 'http://10.75.81.29:81/faults/cape/?data=3'
     
 
   }
@@ -71,11 +71,11 @@ class page_3 extends page_1 {
           <CardColumns className="cols-2">
             <div>
 
-              <Piechart_generic url={this.pie1_url} title={'Most Common Relays'} startDate={this.state.startDate} endDate={this.state.endDate} isBar={true} ref={this.pieElement1}  />
+              <Piechart_generic url={this.pie1_url} title={'Busses by Voltage'} startDate={this.state.startDate} endDate={this.state.endDate} isBar={true} ref={this.pieElement1}  />
             </div>
             <div>
 
-              <Piechart_generic url={this.pie2_url} title={'Breakdown of Relay Technology'} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.pieElement2} />
+              <Piechart_generic url={this.pie2_url} title={"Substations by Area "} startDate={this.state.startDate} endDate={this.state.endDate} ref={this.pieElement2} />
             </div>
 
 

@@ -159,7 +159,7 @@ const mainChartOpts = {
     enabled: false,
     custom: CustomTooltips,
     intersect: true,
-    mode: 'index',
+    mode: 'x',
     position: 'nearest',
     callbacks: {
       labelColor: function (tooltipItem, chart) {
@@ -352,7 +352,7 @@ class Dashboard extends Component {
         deptDataCharts.forEach((i) => (bar_data_labels.push(i.label + ' (' + i.data.reduce((i, j) => i + j.y, 0) + ')')))
         deptDataCharts.forEach((i) => (bar_data.push(i.data.reduce((i, j) => i + j.y, 0))))
         // bar_data_labels.sort();
-        console.log('data', deptDataCharts)
+        console.log('data1111', deptDataCharts)
 
 
 
@@ -392,6 +392,7 @@ class Dashboard extends Component {
 
   componentDidMount() {
     Chart.plugins.unregister(ChartDataLabels);
+    console.log("mounttted")
     
     this.call_api(2)
   }
