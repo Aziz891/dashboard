@@ -42,7 +42,7 @@ export default {
       },
       {
         name: 'cape2',
-        url: '/dashboard2',
+        url: '/dashboard4',
         icon: 'icon-speedometer',
         badge: {
           variant: 'info'

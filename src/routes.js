@@ -25,6 +25,7 @@ const Charts = React.lazy(() => import('./views/Charts'));
 const Dashboard = React.lazy(() => import('./views/page_1'));
 const Dashboard2 = React.lazy(() => import('./views/page_2'));
 const Dashboard3 = React.lazy(() => import('./views/page_3'));
+const Dashboard4 = React.lazy(() => import('./views/page_4'));
 const CoreUIIcons = React.lazy(() => import('./views/Icons/CoreUIIcons'));
 const Flags = React.lazy(() => import('./views/Icons/Flags'));
 const FontAwesome = React.lazy(() => import('./views/Icons/FontAwesome'));
@@ -44,6 +45,7 @@ const routes = [
   { path: '/dashboard', name: 'PED', component: Dashboard },
   { path: '/dashboard2', name: 'Others', component: Dashboard2 },
   { path: '/dashboard3', name: 'Cape', component: Dashboard3 },
+  { path: '/dashboard4', name: 'Cape2', component: Dashboard4 },
   { path: '/theme', exact: true, name: 'Theme', component: Colors },
   { path: '/theme/colors', name: 'Colors', component: Colors },
   { path: '/theme/typography', name: 'Typography', component: Typography },

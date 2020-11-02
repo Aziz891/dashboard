@@ -45,7 +45,6 @@ const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
 let data_labels = []
-console.log(Doughnut.prototype) 
 
 // Card Chart 1
 const cardChartData1 = {
@@ -457,7 +456,16 @@ const bar_label = []
 const data_chart_line = {"woa": [], "eoa": [], "coa": [], "pesd": [], }
 let data_chart_line_test = {}
 
-const doughnutoption = { legend: {
+const doughnutoption = {
+  
+  title : {display: true,
+  
+    position: 'top',
+    // text: () => ('Total')()
+    
+  },
+  
+  legend: {
   
   // labels: { 
   //   filter: function(item, chart) {
@@ -591,9 +599,13 @@ Piechart_generic extends Component {
     `&todate=${this.props.endDate.toISOString().slice(0, 10)}`
     )
       .then(response => {
-        console.log('response454', response)
+
+        console.log('fff', response)
+        doughnutoption.title.text = 'Total: ' + response.data.data.reduce((i, j)=> (i + j), 0 )
+        
      
-         let PieData = { labels: response.data.labels, datasets: [ { data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }]  }
+         let PieData = { labels: response.data.labels, datasets: [ { data: response.data.data,
+           backgroundColor: colorSet.slice(0, response.data.labels.length)    }]  }
          this.setState({ data_pie: PieData} );
  
  
@@ -625,12 +637,11 @@ Piechart_generic extends Component {
 
   
   componentDidMount() {
-    Chart.plugins.unregister(ChartDataLabels);
+    // Chart.plugins.unregister(ChartDataLabels);
    this.call_api(this.props.url)
   }
   componentWillMount() {
     this.call_api(this.props.url)
-    console.log('fdfdfd')
   }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -639,12 +650,14 @@ Piechart_generic extends Component {
     let typechart
     if (this.props.isBar) {
 
-      doughnutoption.legend.display = false
+      doughnutoption.legend.display = false  
+      doughnutoption.plugins.datalabels.display = false
       
       typechart = <Bar data={this.state.data_pie} options={doughnutoption} plugins={[ChartDataLabels]} />
       
     } else {
       doughnutoption.legend.display = true
+      doughnutoption.plugins.datalabels.display = true 
       typechart = <Doughnut data={this.state.data_pie} options={doughnutoption} plugins={[ChartDataLabels]} />
     }
 

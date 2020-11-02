@@ -32,11 +32,11 @@ import page_1 from "../page_1"
 
 import "react-datepicker/dist/react-datepicker.css";
 
-class page_3 extends page_1 {
+class page_4 extends page_1 {
 
   constructor(props) {
     super(props);
-    this.line_url = 'http://127.0.0.1:8000/faults/cape/?data=1'
+    this.line_url = 'http://127.0.0.1:8000/faults/cape/?data=4'
     this.pie1_url = 'http://127.0.0.1:8000/faults/cape/?data=2'
     this.pie2_url = 'http://127.0.0.1:8000/faults/cape/?data=3'
     this.lineElement = React.createRef()
@@ -110,4 +110,4 @@ class page_3 extends page_1 {
 
 
   }
-  export default page_3
+  export default page_4

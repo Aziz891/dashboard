@@ -77,16 +77,17 @@ class page_1 extends React.Component {
       default:
         break;
     }
-    setTimeout(() => {console.log('selected', this.lineElement.current.state.startDate, date, this.pieElement1)
+    // setTimeout(() => {
+      console.log('selected', this.lineElement.current, 
+    this.pieElement1.current, this.pieElement2.current)
     this.lineElement.current.call_api(this.lineElement.current.state.radioSelected)
     this.pieElement1.current.call_api(this.pie1_url)
     this.pieElement2.current.call_api(this.pie2_url)
   
-  } , 100 )
+  // } , 500 )
     
   }
   componentDidMount() {
-    console.log('refs', this.lineElement, this.pieElement1)
 
 
 

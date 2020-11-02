@@ -45,7 +45,6 @@ const brandInfo = getStyle('--info')
 const brandWarning = getStyle('--warning')
 const brandDanger = getStyle('--danger')
 let data_labels = []
-console.log(Doughnut.prototype) 
 
 // Card Chart 1
 const cardChartData1 = {
@@ -590,7 +589,6 @@ Piechart extends Component {
       .then(response => {
         
         let PieData = { labels: response.data.labels, datasets: [ {label: 'Total : ' + response.data.others , data: response.data.data, backgroundColor: colorSet.slice(0, response.data.labels.length) }]  }
-        console.log('response454', this, PieData)
         
          this.setState({ data_pie: PieData , others: response.data.others} );
  

@@ -154,15 +154,24 @@ let data_chart_line_test = {}
 
 
 const mainChartOpts = {
+  hover: {
+    mode: 'new mode'
+  },
 
   tooltips: {
     enabled: false,
     custom: CustomTooltips,
     intersect: true,
+    itemSort: function(a, b) {
+      return (a.y - b.y)
+
+
+    } ,
     mode: 'x',
     position: 'nearest',
     callbacks: {
       labelColor: function (tooltipItem, chart) {
+        
         return { backgroundColor: chart.data.datasets[tooltipItem.datasetIndex].borderColor }
       }
     }
@@ -220,6 +229,7 @@ class Dashboard extends Component {
 
     this.toggle = this.toggle.bind(this);
     this.onRadioBtnClick = this.onRadioBtnClick.bind(this);
+    
 
     this.state = {
       dropdownOpen: false,
@@ -234,7 +244,8 @@ class Dashboard extends Component {
 
   call_api(radioSelected) {
 
-    const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
+    const colorSet = ['#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783',
+    '#466f9d', '#91b3d7', '#ed444a', '#feb5a2', '#9d7660', '#d7b5a6', '#3896c4', '#a0d4ee', '#ba7e45', '#39b87f', '#c8133b', '#ea8783']
 
     let url_ips =  this.props.url_request    //'http://10.75.81.29:81/faults/ips/?'
     url_ips = url_ips + '&fromdate=' + this.props.startDate.toISOString().slice(0, 10)
@@ -352,7 +363,6 @@ class Dashboard extends Component {
         deptDataCharts.forEach((i) => (bar_data_labels.push(i.label + ' (' + i.data.reduce((i, j) => i + j.y, 0) + ')')))
         deptDataCharts.forEach((i) => (bar_data.push(i.data.reduce((i, j) => i + j.y, 0))))
         // bar_data_labels.sort();
-        console.log('data1111', deptDataCharts)
 
 
 
@@ -360,9 +370,11 @@ class Dashboard extends Component {
         // let PieData = { labels: bar_data_labels, datasets: [{data: bar_data, backgroundColor: colorSet.slice(0, bar_data_labels.length) }]  }
         // let PieData = { labels: bar_data_labels, datasets: [{data: bar_data }]  }
         let PieData = { datasets: [{ data: opecData }] }
+        console.log(deptDataCharts)
 
 
-        this.setState({ data_pie: PieData, data: { datasets: deptDataCharts } });
+        this.setState({ data_pie: PieData });
+        this.setState({ data: { datasets: deptDataCharts } });
       })
   }
   toggle() {
@@ -392,9 +404,15 @@ class Dashboard extends Component {
 
   componentDidMount() {
     Chart.plugins.unregister(ChartDataLabels);
-    console.log("mounttted")
     
     this.call_api(2)
+    console.log('didmpontapicall dash')
+  }
+  componentDidUpdate() {
+    Chart.plugins.unregister(ChartDataLabels);
+    
+    // this.call_api(this.state.radioSelected)
+    console.log('didupdateapicall dash')
   }
 
 
