@@ -37,8 +37,8 @@ class page_4 extends page_1 {
   constructor(props) {
     super(props);
     this.line_url = 'http://127.0.0.1:8000/faults/cape/?data=4'
-    this.pie1_url = 'http://127.0.0.1:8000/faults/cape/?data=2'
-    this.pie2_url = 'http://127.0.0.1:8000/faults/cape/?data=3'
+    this.pie1_url = 'http://127.0.0.1:8000/faults/cape/?data=5'
+    this.pie2_url = 'http://127.0.0.1:8000/faults/cape/?data=6'
     this.lineElement = React.createRef()
     this.pieElement1 = React.createRef()
     this.pieElement2 = React.createRef()

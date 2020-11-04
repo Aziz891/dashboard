@@ -1,11 +1,14 @@
 export default {
   items: [
+    
     {
+      title: true,
       name: 'IPS',
-      url: '/base',
-      icon: 'icon-pie-chart',
-      children: [
-
+      wrapper: {
+        element: '',
+        attributes: {},
+      },
+    },
 
         {name: 'PED',
         url: '/dashboard',
@@ -24,13 +27,15 @@ export default {
           
         }
       },
-      ] },
+      
     {
+      title: true,
       name: 'CAPE',
-      url: '/base',
-      icon: 'icon-pie-chart',
-      children: [
-
+      wrapper: {
+        element: '',
+        attributes: {},
+      },
+    },
 
         {name: 'Bus Stats',
         url: '/dashboard3',
@@ -41,7 +46,7 @@ export default {
         }
       },
       {
-        name: 'cape2',
+        name: 'Protection Stat',
         url: '/dashboard4',
         icon: 'icon-speedometer',
         badge: {
@@ -49,7 +54,32 @@ export default {
           
         }
       },
-      ] },
+      
+    // {
+    //   name: 'CAPE',
+    //   url: '/base',
+    //   icon: 'icon-pie-chart',
+    //   children: [
+
+
+    //     {name: 'Bus Stats',
+    //     url: '/dashboard3',
+    //     icon: 'icon-speedometer',
+    //     badge: {
+    //       variant: 'info'
+         
+    //     }
+    //   },
+    //   {
+    //     name: 'cape2',
+    //     url: '/dashboard4',
+    //     icon: 'icon-speedometer',
+    //     badge: {
+    //       variant: 'info'
+          
+    //     }
+    //   },
+    //   ] },
 
     // {
     //   name: 'Other Departments',
@@ -59,7 +89,7 @@ export default {
     //     variant: 'info'
         
     //   }
-    // }
+    // },
     // {
     //   name: 'Colors',
     //   url: '/theme/colors',

@@ -54,16 +54,18 @@ class page_3 extends page_1 {
 
 
         <div>
+          <div >
 
           <DatePicker onChange={(date, event) => this.handleDateChange(date, event, 1)} selected={this.state.startDate}  />
           <DatePicker onChange={(date, event) => this.handleDateChange(date, event, 2)} selected={this.state.endDate}  />
-          <div>
 
-              <Button title="export" onClick={(e) => {
-         e.preventDefault();
-        window.location.href=`http://10.75.81.29:81/faults/ips_export/?fromdate=${this.state.startDate.toISOString().slice(0, 10)}&todate=${this.state.endDate.toISOString().slice(0, 10)}`;
-      }}   > Export </Button>
+
           </div>
+          <br />
+     
+
+         
+          
         </div>
         <div>
 
