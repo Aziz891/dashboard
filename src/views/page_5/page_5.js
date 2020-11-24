@@ -52,13 +52,13 @@ const columns = [
   },
 ];
 
-class page_4 extends page_1 {
+class page_5 extends page_1 {
 
   constructor(props) {
     super(props);
-    this.line_url = 'http://127.0.0.1:8000/faults/cape/?data=4'
-    this.pie1_url = 'http://127.0.0.1:8000/faults/cape/?data=5'
-    this.pie2_url = 'http://127.0.0.1:8000/faults/cape/?data=6'
+    this.line_url = 'http://127.0.0.1:8000/faults/cape/?data=9'
+    this.pie1_url = 'http://127.0.0.1:8000/faults/cape/?data=10'
+    this.pie2_url = 'http://127.0.0.1:8000/faults/cape/?data=11'
     this.lineElement = React.createRef()
     this.pieElement1 = React.createRef()
     this.pieElement2 = React.createRef()
@@ -97,7 +97,7 @@ class page_4 extends page_1 {
       default:
         break;
     }
-    axios.get(`http://127.0.0.1:8000/faults/cape/?data=8&fromdate=${this.state.startDate.toISOString().slice(0, 10)}&todate=${this.state.endDate.toISOString().slice(0, 10)}`
+    axios.get(`http://127.0.0.1:8000/faults/cape/?data=12&fromdate=${this.state.startDate.toISOString().slice(0, 10)}&todate=${this.state.endDate.toISOString().slice(0, 10)}`
     ).then(response => {
         // console.log(response)
         let x = [];
@@ -239,4 +239,4 @@ class page_4 extends page_1 {
 
 
   }
-  export default page_4
+  export default page_5

@@ -1,0 +1,6 @@
+{
+  "name": "dTable",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./dTable.js"
+}

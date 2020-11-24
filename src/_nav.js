@@ -54,6 +54,16 @@ export default {
           
         }
       },
+
+      {
+        name: 'Line Stat',
+        url: '/dashboard5',
+        icon: 'icon-speedometer',
+        badge: {
+          variant: 'info'
+          
+        }
+      },
       
     // {
     //   name: 'CAPE',
