@@ -101,7 +101,7 @@ class page_5 extends page_1 {
     ).then(response => {
         // console.log(response)
         let x = [];
-        response.data.data.forEach((i, index)=> {x.push({id: index+1 , user:i[0], name: i[1], date: new Date( i[2]).toLocaleString() }) })
+        response.data.data.forEach((i, index)=> {x.push({id: index+1 , user:i[0], name: i[1], date: new Date( i[2]).toISOString().slice(0, 19).split("T").join(" ") }) })
         console.log(x)
         this.setState({tableData: x})
 
@@ -147,8 +147,8 @@ class page_5 extends page_1 {
                     {/* <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button> */}
                     <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                       <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="secondary" onClick={() => this.radioClicked(1)} active={this.state.radioSelected === 1}>Day </Button>
-                        <Button color="secondary" onClick={() => this.radioClicked(2)} active={this.state.radioSelected === 2}>Month</Button>
+                        <Button color="secondary" onClick={() => this.radioClicked(1)} active={this.state.radioSelected === 1}>Charts</Button>
+                        <Button color="secondary" onClick={() => this.radioClicked(2)} active={this.state.radioSelected === 2}>List</Button>
                       </ButtonGroup>
                     </ButtonToolbar>
                   </Col>
@@ -182,8 +182,8 @@ class page_5 extends page_1 {
                     {/* <Button color="primary" className="float-right"><i className="icon-cloud-download"></i></Button> */}
                     <ButtonToolbar className="float-right" aria-label="Toolbar with button groups">
                       <ButtonGroup className="mr-3" aria-label="First group">
-                        <Button color="secondary" onClick={() => this.radioClicked(1)} active={this.state.radioSelected === 1}>Day </Button>
-                        <Button color="secondary" onClick={() => this.radioClicked(2)} active={this.state.radioSelected === 2}>Month</Button>
+                        <Button color="secondary" onClick={() => this.radioClicked(1)} active={this.state.radioSelected === 1}>Charts</Button>
+                        <Button color="secondary" onClick={() => this.radioClicked(2)} active={this.state.radioSelected === 2}>List</Button>
                       </ButtonGroup>
                     </ButtonToolbar>
                   </Col>

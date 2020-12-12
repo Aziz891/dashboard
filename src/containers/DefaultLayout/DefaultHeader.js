@@ -4,8 +4,8 @@ import { Badge, UncontrolledDropdown, DropdownItem, DropdownMenu, DropdownToggle
 import PropTypes from 'prop-types';
 
 import { AppAsideToggler, AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
-import logo from '../../assets/img/brand/logo.svg'
-import sygnet from '../../assets/img/brand/sygnet.svg'
+import logo from '../../assets/img/brand/15_national-grid.jpg'
+import sygnet from '../../assets/img/brand/15_national-grid.jpg'
 
 const propTypes = {
   children: PropTypes.node,
@@ -22,12 +22,7 @@ class DefaultHeader extends Component {
     return (
       <React.Fragment>
         <AppSidebarToggler className="d-lg-none" display="md" mobile />
-        {/* <AppNavbarBrand
-          full={{  a: 'CoreUI Logo' }}
-          minimized={{ src: sygnet, width: 30, height: 30, alt: 'CoreUI Logo' }}
-        /> */}
         <AppSidebarToggler className="d-md-down-none" display="lg" />
-
         {/* <Nav className="d-md-down-none" navbar>
           <NavItem className="px-3">
             <NavLink to="/dashboard" className="nav-link" >Dashboard</NavLink>
@@ -39,6 +34,12 @@ class DefaultHeader extends Component {
             <NavLink to="#" className="nav-link">Settings</NavLink>
           </NavItem>
         </Nav> */}
+        <img src={logo} alt="Logo" width= {150} height =  {45} />
+        {/* <AppNavbarBrand 
+          full={{ src: logo, width: 100, height: 30, alt: 'CoreUI Logo' }}
+          minimized={{ src: logo, width: 100, height: 30, alt: 'CoreUI Logo' }}
+        /> */}
+
         {/* <Nav className="ml-auto" navbar>
           <NavItem className="d-md-down-none">
             <NavLink to="#" className="nav-link"><i className="icon-bell"></i><Badge pill color="danger">5</Badge></NavLink>
