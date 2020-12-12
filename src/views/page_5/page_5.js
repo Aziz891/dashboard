@@ -101,7 +101,7 @@ class page_5 extends page_1 {
     ).then(response => {
         // console.log(response)
         let x = [];
-        response.data.data.forEach((i, index)=> {x.push({id: index+1 , user:i[0], name: i[1], date: new Date( i[2]).toISOString().slice(0, 19).split("T").join(" ") }) })
+        response.data.data.forEach((i, index)=> {x.push({id: index+1 , user:i[0], name: i[1], date: new Date( i[2]).toLocaleString( 'sv', { timeZoneName: 'short' } ).slice(0,18) }) })
         console.log(x)
         this.setState({tableData: x})
 
